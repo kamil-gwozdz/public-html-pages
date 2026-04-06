@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glow-Up Protocol — Kamil</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Inter',-apple-system,sans-serif;
+    background:#0a0a0f; color:#e8e8ee;
+    line-height:1.6; padding:40px 20px;
+  }
+  .container { max-width:800px; margin:0 auto; }
+  
+  .header { text-align:center; margin-bottom:40px; padding-bottom:24px; border-bottom:1px solid #1a1a2e; }
+  .header h1 { font-size:26px; font-weight:700;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:6px; }
+  .header .sub { font-size:13px; color:#6b6b80; }
+  
+  .section { margin-bottom:32px; background:#12121c; border-radius:14px; padding:24px; border:1px solid #1a1a2e; }
+  .section h2 { font-size:17px; font-weight:600; margin-bottom:16px; display:flex; align-items:center; gap:8px; }
+  .section h3 { font-size:14px; font-weight:600; color:#667eea; margin:18px 0 10px; }
+  
+  .phase { border-left:3px solid #667eea; padding-left:16px; margin-bottom:20px; }
+  .phase-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+  .phase-title { font-size:15px; font-weight:600; }
+  .phase-time { font-size:12px; color:#667eea; background:#1a1a30; padding:2px 8px; border-radius:4px; }
+  
+  .task { background:#0d0d16; border-radius:10px; padding:14px; margin-bottom:10px; border:1px solid #1a1a2e; }
+  .task-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px; }
+  .task-title { font-size:14px; font-weight:600; }
+  .task-impact { font-size:11px; padding:2px 6px; border-radius:3px; }
+  .impact-high { background:#0d2818; color:#4ade80; }
+  .impact-med { background:#2d2200; color:#fbbf24; }
+  .impact-low { background:#1a1a30; color:#60a5fa; }
+  .task-body { font-size:13px; color:#9b9bb0; }
+  .task-body strong { color:#c0c0d0; }
+  
+  .product { background:#0a0a14; border:1px solid #1a1a2e; border-radius:8px; padding:10px 12px; margin:6px 0; display:flex; justify-content:space-between; align-items:center; }
+  .product-name { font-size:13px; font-weight:500; }
+  .product-price { font-size:12px; color:#6b6b80; }
+  .product-note { font-size:11px; color:#4a4a5e; }
+  
+  .routine-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:10px; }
+  .routine-box { background:#0d0d16; border-radius:10px; padding:14px; border:1px solid #1a1a2e; }
+  .routine-box h4 { font-size:13px; font-weight:600; margin-bottom:8px; }
+  .routine-box .step { font-size:12px; color:#9b9bb0; padding:3px 0; display:flex; gap:6px; }
+  .routine-box .step-num { color:#667eea; font-weight:600; min-width:16px; }
+  
+  .timeline { position:relative; padding-left:28px; }
+  .timeline::before { content:''; position:absolute; left:8px; top:0; bottom:0; width:2px; background:#1a1a2e; }
+  .timeline-item { position:relative; margin-bottom:16px; }
+  .timeline-item::before { content:''; position:absolute; left:-24px; top:6px; width:12px; height:12px; border-radius:50%; border:2px solid #667eea; background:#0a0a0f; }
+  .timeline-item.done::before { background:#667eea; }
+  .tl-time { font-size:11px; color:#667eea; font-weight:500; }
+  .tl-text { font-size:13px; color:#c0c0d0; }
+  
+  .cost-table { width:100%; border-collapse:collapse; margin-top:12px; }
+  .cost-table td { padding:8px 0; font-size:13px; border-bottom:1px solid #1a1a2e; }
+  .cost-table td:last-child { text-align:right; font-weight:600; }
+  .cost-total td { color:#667eea; font-weight:600; border-top:2px solid #667eea; border-bottom:none; }
+  
+  .barrier-note { background:#0d0d16; border-left:3px solid #764ba2; padding:12px 14px; border-radius:0 8px 8px 0; font-size:12px; color:#9b9bb0; margin:10px 0; }
+  .barrier-note strong { color:#c0c0d0; }
+  
+  .check { color:#4ade80; }
+  .warn { color:#fbbf24; }
+  
+  .disclaimer { text-align:center; font-size:11px; color:#3a3a4e; margin-top:36px; padding-top:16px; border-top:1px solid #1a1a2e; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <h1>🦖 Personalized Glow-Up Protocol</h1>
+  <div class="sub">Oparty o analizę 8 zdjęć • 478-point FaceMesh • Wyniki krwi z 03.04.2026</div>
+  <div class="sub" style="margin-top:4px;">Kamil, 28, ~85kg • Wszystko online, zero dzwonienia, zero chirurgii</div>
+</div>
+
+<!-- ===== OVERVIEW ===== -->
+<div class="section">
+  <h2>📋 Czego dotyczą zmiany</h2>
+  <div style="font-size:13px;color:#9b9bb0;">
+    Na bazie analizy — 3 obszary dają 80% efektu:
+  </div>
+  <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap;">
+    <div style="flex:1;min-width:200px;background:#0d2818;border-radius:10px;padding:14px;text-align:center;">
+      <div style="font-size:28px;font-weight:700;color:#4ade80;">💇</div>
+      <div style="font-size:13px;font-weight:600;color:#4ade80;margin-top:4px;">Fryzura</div>
+      <div style="font-size:11px;color:#6b8b6b;">Facial thirds 4.1→7+ /10</div>
+    </div>
+    <div style="flex:1;min-width:200px;background:#2d2200;border-radius:10px;padding:14px;text-align:center;">
+      <div style="font-size:28px;font-weight:700;color:#fbbf24;">🧔</div>
+      <div style="font-size:13px;font-weight:600;color:#fbbf24;margin-top:4px;">Jawline definition</div>
+      <div style="font-size:11px;color:#8b7b4b;">Jaw score 6.5→8+ /10</div>
+    </div>
+    <div style="flex:1;min-width:200px;background:#1a1a30;border-radius:10px;padding:14px;text-align:center;">
+      <div style="font-size:28px;font-weight:700;color:#60a5fa;">✨</div>
+      <div style="font-size:13px;font-weight:600;color:#60a5fa;margin-top:4px;">Skincare + pod-eye</div>
+      <div style="font-size:11px;color:#4a5a7b;">Skin glow + under-eye fix</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PHASE 1: WEEK 1-2 ===== -->
+<div class="section">
+  <h2>🚀 Plan szczegółowy</h2>
+  
+  <div class="phase">
+    <div class="phase-header">
+      <span class="phase-title">Phase 1 — Quick Wins</span>
+      <span class="phase-time">Tydzień 1-2</span>
+    </div>
+    
+    <div class="task">
+      <div class="task-header">
+        <span class="task-title">💇 Wizyta u fryzjera — nowa fryzura</span>
+        <span class="task-impact impact-high">HIGHEST IMPACT</span>
+      </div>
+      <div class="task-body">
+        <strong>Cel:</strong> Odsłonić czoło → poprawić facial thirds z 19/41/40 na ~28/36/36<br><br>
+        <strong>Co powiedzieć fryzjerowi:</strong> "Textured quiff — krótsze boki (fade lub taper), góra dłuższa, zaczęsana do góry/lekko na bok. Chcę odsłonić czoło."<br><br>
+        <strong>Styl:</strong> Textured quiff ALBO messy swept-back. Oba wydłużają optycznie twarz, odsłaniają czoło, podkreślają kości policzkowe.<br><br>
+        <strong>Produkt do stylizacji:</strong> Sea salt spray + matowy clay/pasta (nie żel, nie wax — za ciężkie)
+        
+        <div class="barrier-note">
+          <strong>🧩 Twoja bariera:</strong> Interakcja z obcym + gadanie po niemiecku. Opcje: (1) Barber z bookingiem online + anglojęzyczny (Berlin ma mnóstwo), (2) Pokaż zdjęcie na telefonie zamiast opisywać — zero słów potrzebne, (3) Weź Łukasza za wsparcie moralne.
+        </div>
+        
+        <div class="product">
+          <div>
+            <div class="product-name">Hanz de Fuko Claymation (matowy clay)</div>
+            <div class="product-note">Amazon.de — darmowa dostawa Prime</div>
+          </div>
+          <div class="product-price">~22€</div>
+        </div>
+        <div class="product">
+          <div>
+            <div class="product-name">Sea salt spray (dowolny, np. Schwarzkopf Got2b)</div>
+            <div class="product-note">DM / Rossmann / Amazon</div>
+          </div>
+          <div class="product-price">~5€</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="task">
+      <div class="task-header">
+        <span class="task-title">✨ Podstawowy skincare — start rutyny</span>
+        <span class="task-impact impact-high">HIGH IMPACT</span>
+      </div>
+      <div class="task-body">
+        <strong>Zamów online (The Ordinary — dostawa DE z theordinary.com lub Douglas.de):</strong>
+        
+        <div class="product">
+          <div>
+            <div class="product-name">The Ordinary Squalane Cleanser</div>
+            <div class="product-note">Delikatny, nie suszy — rano i wieczorem</div>
+          </div>
+          <div class="product-price">~8€</div>
+        </div>
+        <div class="product">
+          <div>
+            <div class="product-name">The Ordinary Natural Moisturizing Factors + HA</div>
+            <div class="product-note">Nawilżający — po cleansingu, rano i wieczór</div>
+          </div>
+          <div class="product-price">~8€</div>
+        </div>
+        <div class="product">
+          <div>
+            <div class="product-name">The Ordinary Caffeine Solution 5% + EGCG</div>
+            <div class="product-note">Pod oczy — rano, na cienie/opuchliznę</div>
+          </div>
+          <div class="product-price">~7€</div>
+        </div>
+        <div class="product">
+          <div>
+            <div class="product-name">La Roche-Posay Anthelios SPF50+ Fluid</div>
+            <div class="product-note">SPF — codziennie rano, nawet w domu. Non-negotiable.</div>
+          </div>
+          <div class="product-price">~15€</div>
+        </div>
+        
+        <div class="routine-grid">
+          <div class="routine-box">
+            <h4>☀️ Rano (3 min)</h4>
+            <div class="step"><span class="step-num">1.</span> Cleanser</div>
+            <div class="step"><span class="step-num">2.</span> Caffeine pod oczy</div>
+            <div class="step"><span class="step-num">3.</span> Moisturizer</div>
+            <div class="step"><span class="step-num">4.</span> SPF (ostatni krok)</div>
+          </div>
+          <div class="routine-box">
+            <h4>🌙 Wieczór (2 min)</h4>
+            <div class="step"><span class="step-num">1.</span> Cleanser</div>
+            <div class="step"><span class="step-num">2.</span> Moisturizer</div>
+            <div class="step"><span class="step-num">—</span> <em style="color:#4a4a5e;">Retinol dodasz w Phase 2</em></div>
+          </div>
+        </div>
+
+        <div class="barrier-note">
+          <strong>🧩 Twoja bariera:</strong> Żadna — wszystko online (theordinary.com, Douglas.de, Amazon.de). Zero interakcji z ludźmi. Zamówienie = 5 min.
+        </div>
+      </div>
+    </div>
+    
+    <div class="task">
+      <div class="task-header">
+        <span class="task-title">✂️ Brow shaping — wyrównanie symetrii</span>
+        <span class="task-impact impact-med">MEDIUM IMPACT</span>
+      </div>
+      <div class="task-body">
+        <strong>Cel:</strong> Brwi: 54% → 90%+ symetrii. Lewa jest bardziej łukowata.<br><br>
+        <strong>Opcja A (łatwiej):</strong> Zrób razem z wizytą u fryzjera — wiele barber shopów oferuje brow trim. Powiedz: "Eyebrow cleanup please, even them out."<br>
+        <strong>Opcja B (online booking):</strong> Browbar/threading studio — szukaj "eyebrow threading Berlin" na Treatwell.de lub Booksy.com (booking 100% online).<br>
+        <strong>Opcja C (DIY):</strong> Tweezerman pinzeta — ogarnij sam dolną linię brwi. Zasada: nigdy nie usuwaj z góry, tylko drobne oczyszczenie pod brwią.<br><br>
+        <strong>Powtarzaj:</strong> co 4-6 tygodni
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 2: WEEK 3-8 -->
+  <div class="phase" style="border-left-color:#fbbf24;">
+    <div class="phase-header">
+      <span class="phase-title">Phase 2 — Build</span>
+      <span class="phase-time">Tydzień 3-8</span>
+    </div>
+    
+    <div class="task">
+      <div class="task-header">
+        <span class="task-title">🧴 Retinol — anti-aging + skin texture</span>
+        <span class="task-impact impact-high">HIGH IMPACT</span>
+      </div>
+      <div class="task-body">
+        <strong>Dlaczego czekać 2 tyg:</strong> Skóra musi się przyzwyczaić do nowej rutyny. Retinol na nieoczyszczoną/nienawilżoną skórę = irytacja.<br><br>
+        
+        <div class="product">
+          <div>
+            <div class="product-name">The Ordinary Retinol 0.2% in Squalane</div>
+            <div class="product-note">Start 2x/tyg wieczorem → zwiększaj do co 2. noc</div>
+          </div>
+          <div class="product-price">~6€</div>
+        </div>
+        
+        <strong>Aplikacja:</strong> Wieczór, po cleansingu, PRZED moisturizerem. Ziarno grochu na całą twarz (nie pod oczy).<br>
+        <strong>Tydzień 3-4:</strong> 2x w tygodniu (np. pon/czw)<br>
+        <strong>Tydzień 5-6:</strong> co 2 dzień<br>
+        <strong>Tydzień 7+:</strong> co noc (jeśli brak irytacji)<br><br>
+        <strong>⚠️ NIE łącz z:</strong> witaminą C rano (ok), kwasami AHA/BHA tego samego wieczoru (nie ok).<br>
+        <strong>⚠️ SPF jest OBOWIĄZKOWY</strong> przy retinolu — skóra jest bardziej wrażliwa na UV.
+      </div>
+    </div>
+    
+    <div class="task">
+      <div class="task-header">
+        <span class="task-title">🧔 Minoxidil — jawline beard growth</span>
+        <span class="task-impact impact-med">MEDIUM-HIGH</span>
+      </div>
+      <div class="task-body">
+        <strong>Cel:</strong> Lekki zarost na linii żuchwy → optycznie zwęża dolną twarz, definiuje jaw<br>
+        <strong>Timeline:</strong> Vellus hair (puch) ~8 tyg, terminal hair ~4-6 mies., pełny efekt ~12 mies.<br><br>
+        
+        <div class="product">
+          <div>
+            <div class="product-name">Kirkland Minoxidil 5% Foam (6-pack)</div>
+            <div class="product-note">Amazon.de — foam > liquid (mniej podrażnień)</div>
+          </div>
+          <div class="product-price">~35€ / 6 mies.</div>
+        </div>
+        
+        <strong>Aplikacja:</strong> 1-2x dziennie na jawline + podbródek. Czysta skóra, pół nakrętki piany.<br>
+        <strong>Zostaw:</strong> min. 4h (najlepiej na noc).<br>
+        <strong>Dermaroller:</strong> 0.5mm, 1x/tyg na jawline PRZED minoxidilem (zwiększa absorpcję ~50%). Nie w ten sam dzień co retinol!<br><br>
+        
+        <strong>⚠️ Efekty uboczne:</strong> Suchość skóry (moisturizer po wchłonięciu), ewentualny initial shedding (normalne), lekki puch na ciele (u niektórych).<br>
+        <strong>⚠️ Nie stosuj jeśli:</strong> masz kota (toksyczny dla kotów) lub problemy z sercem/ciśnieniem.
+        
+        <div class="barrier-note">
+          <strong>🧩 Opcja alternatywna</strong> (jeśli nie chcesz minoxidilu): Falim gum (twarda turecka guma) 30-45 min/dzień → rozwija masseter → optycznie definiuje jaw. Zamów na Amazon.de ~8€/pack. Wolniejsze ale bezinwazyjne.
+        </div>
+      </div>
+    </div>
+    
+    <div class="task">
+      <div class="task-header">
+        <span class="task-title">👁️ Under-eye upgrade</span>
+        <span class="task-impact impact-med">MEDIUM IMPACT</span>
+      </div>
+      <div class="task-body">
+        Caffeine z Phase 1 adresuje naczynia. Dodaj:
+        
+        <div class="product">
+          <div>
+            <div class="product-name">The Ordinary Retinol 0.2% in Squalane (ten sam)</div>
+            <div class="product-note">Mikro-dawka pod oczy 2x/tyg — buduje kolagen</div>
+          </div>
+          <div class="product-price">(już masz)</div>
+        </div>
+        
+        <strong>Plus:</strong><br>
+        • <strong>Sen 7-8h</strong> — cienie nasilają się przy niedoborze snu<br>
+        • <strong>Nawodnienie 2.5L+/dzień</strong> — odwodnienie = widoczne hollowing<br>
+        • <strong>Poduszka wyżej</strong> — lekki kąt zmniejsza retencję płynów pod oczami<br>
+        • <strong>Witamina K2 + C</strong> — wsparcie kolagenu i naczyń (suplementacja — masz już kreatynę, dodaj do rutyny)
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 3: MONTH 3-6 -->
+  <div class="phase" style="border-left-color:#60a5fa;">
+    <div class="phase-header">
+      <span class="phase-title">Phase 3 — Maintain & Refine</span>
+      <span class="phase-time">Miesiąc 3-6</span>
+    </div>
+    
+    <div class="task">
+      <div class="task-header">
+        <span class="task-title">💪 Body recomp → face gains</span>
+        <span class="task-impact impact-med">MEDIUM IMPACT</span>
+      </div>
+      <div class="task-body">
+        Już trenujesz 4x/tyg siłowo (Upper/Lower split). Brawo — kontynuuj.<br><br>
+        
+        <strong>Dla efektów w twarzy:</strong><br>
+        • Niższy BF% = lepsza definicja kości policzkowych + jaw<br>
+        • Przy 85kg — nie potrzebujesz agresywnego cięcia, lekki recomp wystarczy<br>
+        • Testosteron 723 ng/dl (górna połowa normy) — sprzyjające środowisko hormonalne ✅<br>
+        • HDL 43 — dolna granica. Omega-3 (ryby, orzechy, oliwa) poprawi + ma korzystny wpływ na skórę
+      </div>
+    </div>
+    
+    <div class="task">
+      <div class="task-header">
+        <span class="task-title">📸 Progress tracking</span>
+        <span class="task-impact impact-low">TRACKING</span>
+      </div>
+      <div class="task-body">
+        <strong>Co miesiąc:</strong> Zrób zdjęcie frontalne w tym samym miejscu, oświetleniu, kącie (białe tło = ideał)<br>
+        <strong>Wyślij mi:</strong> Przepuszczę przez ten sam pipeline i porównamy score'y before/after<br>
+        <strong>Czego szukamy:</strong> jaw definition, under-eye improvement, skin texture, overall score trend
+      </div>
+    </div>
+    
+    <div class="task">
+      <div class="task-header">
+        <span class="task-title">👓 Okulary — opcjonalny upgrade</span>
+        <span class="task-impact impact-low">OPTIONAL</span>
+      </div>
+      <div class="task-body">
+        Obecne clear frames są OK. Jeśli chcesz eksperymentować:<br>
+        • <strong>Clubmaster shape</strong> — grubsza górna linia optycznie akcentuje brwi + oczy<br>
+        • <strong>Angular/kwadratowe</strong> — dodadzą kontrastu do owalnej twarzy<br>
+        • <strong>Ciemniejsze oprawki</strong> — więcej kontrastu = twarz wygląda bardziej "defined"<br><br>
+        Kup online: Ace & Tate, Mister Spex (oboje DE, virtual try-on, darmowe przymiarki do domu)
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== DAILY ROUTINE CHEAT SHEET ===== -->
+<div class="section">
+  <h2>📋 Daily Routine — Cheat Sheet</h2>
+  
+  <div class="routine-grid">
+    <div class="routine-box">
+      <h4>☀️ Rano (~5 min)</h4>
+      <div class="step"><span class="step-num">1.</span> Cleanser (Squalane)</div>
+      <div class="step"><span class="step-num">2.</span> Caffeine Solution pod oczy</div>
+      <div class="step"><span class="step-num">3.</span> Moisturizer (NMF + HA)</div>
+      <div class="step"><span class="step-num">4.</span> SPF 50 (La Roche-Posay)</div>
+      <div class="step"><span class="step-num">5.</span> Minoxidil na jawline (jeśli rano)</div>
+    </div>
+    <div class="routine-box">
+      <h4>🌙 Wieczór (~5 min)</h4>
+      <div class="step"><span class="step-num">1.</span> Cleanser (Squalane)</div>
+      <div class="step"><span class="step-num">2.</span> Retinol (co 2 noc, od W3)</div>
+      <div class="step"><span class="step-num">3.</span> Moisturizer (NMF + HA)</div>
+      <div class="step"><span class="step-num">4.</span> Minoxidil na jawline (przed snem)</div>
+    </div>
+  </div>
+  
+  <div style="margin-top:12px;font-size:12px;color:#4a4a5e;">
+    ⏱️ Razem: ~10 min/dzień. Mniej niż scrollowanie Reddita.
+  </div>
+</div>
+
+<!-- ===== COST BREAKDOWN ===== -->
+<div class="section">
+  <h2>💰 Koszt — pełny setup</h2>
+  
+  <table class="cost-table">
+    <tr><td>The Ordinary Squalane Cleanser</td><td>~8€</td></tr>
+    <tr><td>The Ordinary NMF + HA Moisturizer</td><td>~8€</td></tr>
+    <tr><td>The Ordinary Caffeine Solution 5%</td><td>~7€</td></tr>
+    <tr><td>The Ordinary Retinol 0.2% in Squalane</td><td>~6€</td></tr>
+    <tr><td>La Roche-Posay Anthelios SPF50+</td><td>~15€</td></tr>
+    <tr><td>Kirkland Minoxidil 5% Foam (6 mies.)</td><td>~35€</td></tr>
+    <tr><td>Dermaroller 0.5mm</td><td>~10€</td></tr>
+    <tr><td>Sea salt spray + matowy clay</td><td>~27€</td></tr>
+    <tr><td>Wizyta u fryzjera</td><td>~30€</td></tr>
+    <tr><td>Brow threading</td><td>~15€</td></tr>
+    <tr class="cost-total"><td><strong>TOTAL (setup + 6 mies.)</strong></td><td><strong>~161€</strong></td></tr>
+  </table>
+  
+  <div style="margin-top:8px;font-size:12px;color:#4a4a5e;">
+    Porównanie: Qoves = $150/rok za samą analizę (bez produktów). Twój pełny protokół + produkty na 6 mies. = ~161€.
+    <br>Miesięczny koszt utrzymania po setupie: ~15€/mies. (refills skincare + minoxidil)
+  </div>
+</div>
+
+<!-- ===== SHOPPING LIST ===== -->
+<div class="section">
+  <h2>🛒 Lista zakupów — do zamówienia teraz</h2>
+  
+  <h3>Zamówienie 1: The Ordinary (theordinary.com lub Douglas.de)</h3>
+  <div style="font-size:13px;color:#9b9bb0;">
+    ☐ Squalane Cleanser — 8€<br>
+    ☐ Natural Moisturizing Factors + HA — 8€<br>
+    ☐ Caffeine Solution 5% + EGCG — 7€<br>
+    ☐ Retinol 0.2% in Squalane — 6€<br>
+    <strong>Subtotal: ~29€</strong> (darmowa dostawa od 25€ na theordinary.com)
+  </div>
+  
+  <h3>Zamówienie 2: Amazon.de</h3>
+  <div style="font-size:13px;color:#9b9bb0;">
+    ☐ La Roche-Posay Anthelios SPF50+ Fluid — ~15€<br>
+    ☐ Kirkland Minoxidil 5% Foam 6-pack — ~35€<br>
+    ☐ Dermaroller 0.5mm (np. Sdara) — ~10€<br>
+    ☐ Hanz de Fuko Claymation — ~22€<br>
+    ☐ Sea salt spray — ~5€<br>
+    <strong>Subtotal: ~87€</strong>
+  </div>
+  
+  <h3>Booking online</h3>
+  <div style="font-size:13px;color:#9b9bb0;">
+    ☐ Barber — Treatwell.de / Booksy.com (szukaj "textured quiff" + pokaż zdjęcie)<br>
+    ☐ Brow threading — Treatwell.de (szukaj "eyebrow threading Berlin")
+  </div>
+</div>
+
+<!-- ===== EXPECTED RESULTS ===== -->
+<div class="section">
+  <h2>📈 Oczekiwane rezultaty</h2>
+  
+  <div class="timeline">
+    <div class="timeline-item done">
+      <div class="tl-time">Dzień 1 (fryzura)</div>
+      <div class="tl-text">Natychmiastowa zmiana — odsłonięte czoło, lepsze proporcje. Ludzie zauważą.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-time">Tydzień 2</div>
+      <div class="tl-text">Skóra bardziej nawilżona, cienie pod oczami lekko jaśniejsze (caffeine).</div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-time">Tydzień 4-6</div>
+      <div class="tl-text">Skin texture poprawia się (retinol). Pierwsze vellus hairs na jawline (minoxidil).</div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-time">Miesiąc 3</div>
+      <div class="tl-text">Wyraźna poprawa tekstury skóry. Lekki stubble na jawline — definicja zaczyna być widoczna.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-time">Miesiąc 6</div>
+      <div class="tl-text">Pełne efekty skincare. Jawline stubble zdefiniowane. Under-eye area znacznie lepsza. Czas na porównanie before/after.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-time">Miesiąc 12</div>
+      <div class="tl-text">Terminal beard hairs na jawline. Retinol remodeling skóry zakończony. Maximum soft-maxxing achieved.</div>
+    </div>
+  </div>
+  
+  <div style="margin-top:16px;background:#0d2818;border-radius:10px;padding:14px;font-size:13px;color:#4ade80;">
+    <strong>Prognozowany overall score po 6 miesiącach:</strong> 7.9 → 8.5-9.0/10<br>
+    <span style="font-size:11px;color:#6b8b6b;">Główne skok z: fryzury (+2-3 na facial thirds), jawline (+1-2 na jaw definition), skin glow (+0.5 na harmonię)</span>
+  </div>
+</div>
+
+<div class="disclaimer">
+  🦖 Claw Studio • 6 kwietnia 2026<br>
+  Plan informacyjny. Retinol + minoxidil = aktywne substancje — przy irytacji/efektach ubocznych stop i konsultacja z dermatologiem.<br>
+  Minoxidil off-label na brodę — skuteczny, ale nie przez każdego zalecany. Your call.
+</div>
+
+</div>
+</body>
+</html>

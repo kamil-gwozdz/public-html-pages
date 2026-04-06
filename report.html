@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Facial Aesthetics Report — Kamil</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #0a0a0f;
+    color: #e8e8ee;
+    line-height: 1.6;
+    padding: 40px 20px;
+  }
+  
+  .container { max-width: 800px; margin: 0 auto; }
+  
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid #1a1a2e;
+  }
+  
+  .header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+  }
+  
+  .header .subtitle {
+    font-size: 14px;
+    color: #6b6b80;
+    font-weight: 300;
+  }
+  
+  .header .date {
+    font-size: 12px;
+    color: #4a4a5e;
+    margin-top: 4px;
+  }
+  
+  .section {
+    margin-bottom: 36px;
+    background: #12121c;
+    border-radius: 16px;
+    padding: 28px;
+    border: 1px solid #1a1a2e;
+  }
+  
+  .section h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .section h2 .icon { font-size: 22px; }
+  
+  .score-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  
+  .score-item {
+    background: #0d0d16;
+    border-radius: 12px;
+    padding: 16px;
+    border: 1px solid #1a1a2e;
+  }
+  
+  .score-item .label {
+    font-size: 12px;
+    color: #6b6b80;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  
+  .score-item .value {
+    font-size: 24px;
+    font-weight: 700;
+  }
+  
+  .score-item .bar {
+    height: 4px;
+    background: #1a1a2e;
+    border-radius: 2px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+  
+  .score-item .bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.5s ease;
+  }
+  
+  .overall-score {
+    text-align: center;
+    padding: 32px;
+    background: linear-gradient(135deg, #12121c, #1a1a30);
+    border: 1px solid #2a2a4e;
+  }
+  
+  .overall-score .big-number {
+    font-size: 64px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .overall-score .out-of {
+    font-size: 18px;
+    color: #6b6b80;
+    font-weight: 300;
+  }
+  
+  .metric-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #1a1a2e;
+  }
+  
+  .metric-row:last-child { border-bottom: none; }
+  
+  .metric-row .metric-label {
+    font-size: 14px;
+    color: #9b9bb0;
+  }
+  
+  .metric-row .metric-value {
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  .metric-row .metric-ideal {
+    font-size: 11px;
+    color: #4a4a5e;
+  }
+  
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+  
+  .tag-good { background: #0d2818; color: #4ade80; }
+  .tag-ok { background: #2d2200; color: #fbbf24; }
+  .tag-improve { background: #2d0a0a; color: #f87171; }
+  
+  .color-good { color: #4ade80; }
+  .color-ok { color: #fbbf24; }
+  .color-improve { color: #f87171; }
+  .color-great { color: #60a5fa; }
+  
+  .reco-list { list-style: none; }
+  
+  .reco-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid #1a1a2e;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  
+  .reco-list li:last-child { border-bottom: none; }
+  
+  .reco-list .reco-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+  
+  .reco-list .reco-text {
+    font-size: 14px;
+    color: #c0c0d0;
+  }
+  
+  .reco-list .reco-text strong { color: #e8e8ee; }
+  
+  .note-box {
+    background: #0d0d16;
+    border-left: 3px solid #667eea;
+    padding: 16px;
+    margin-top: 16px;
+    border-radius: 0 8px 8px 0;
+    font-size: 13px;
+    color: #9b9bb0;
+  }
+  
+  .strengths-weaknesses {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 16px;
+  }
+  
+  .sw-col h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  
+  .sw-col ul {
+    list-style: none;
+    font-size: 13px;
+    color: #9b9bb0;
+  }
+  
+  .sw-col ul li {
+    padding: 6px 0;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  
+  .prompt-box {
+    background: #0d0d16;
+    border: 1px solid #2a2a4e;
+    border-radius: 12px;
+    padding: 20px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 13px;
+    color: #c0c0d0;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin-top: 16px;
+  }
+  
+  .disclaimer {
+    text-align: center;
+    font-size: 11px;
+    color: #3a3a4e;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #1a1a2e;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Header -->
+<div class="header">
+  <h1>🦖 Facial Aesthetics Report</h1>
+  <div class="subtitle">478-point MediaPipe FaceMesh Analysis • Claw Studio</div>
+  <div class="date">6 kwietnia 2026 • Kamil, 28, European/Polish</div>
+</div>
+
+<!-- Overall Score -->
+<div class="section overall-score">
+  <div style="font-size:12px;color:#6b6b80;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Overall Facial Harmony Score</div>
+  <div class="big-number">7.8</div>
+  <div class="out-of">/ 10</div>
+  <div style="margin-top:12px;font-size:13px;color:#9b9bb0;">Średnia z 3 analizowanych zdjęć (frontal, outdoor, close-up)</div>
+</div>
+
+<!-- Score Grid -->
+<div class="section">
+  <h2><span class="icon">📊</span> Biometric Scores</h2>
+  <div class="score-grid">
+    
+    <div class="score-item">
+      <div class="label">Facial Harmony</div>
+      <div class="value color-good">10.0</div>
+      <div class="bar"><div class="bar-fill" style="width:100%;background:linear-gradient(90deg,#4ade80,#22c55e)"></div></div>
+    </div>
+    
+    <div class="score-item">
+      <div class="label">Eye Shape</div>
+      <div class="value color-good">9.4</div>
+      <div class="bar"><div class="bar-fill" style="width:94%;background:linear-gradient(90deg,#4ade80,#22c55e)"></div></div>
+    </div>
+    
+    <div class="score-item">
+      <div class="label">Canthal Tilt</div>
+      <div class="value color-good">9.3</div>
+      <div class="bar"><div class="bar-fill" style="width:93%;background:linear-gradient(90deg,#4ade80,#22c55e)"></div></div>
+    </div>
+    
+    <div class="score-item">
+      <div class="label">Lip Balance</div>
+      <div class="value color-good">9.9</div>
+      <div class="bar"><div class="bar-fill" style="width:99%;background:linear-gradient(90deg,#4ade80,#22c55e)"></div></div>
+    </div>
+    
+    <div class="score-item">
+      <div class="label">Nose Proportion</div>
+      <div class="value color-ok">7.5</div>
+      <div class="bar"><div class="bar-fill" style="width:75%;background:linear-gradient(90deg,#fbbf24,#f59e0b)"></div></div>
+    </div>
+    
+    <div class="score-item">
+      <div class="label">Jaw Definition</div>
+      <div class="value color-ok">6.6</div>
+      <div class="bar"><div class="bar-fill" style="width:66%;background:linear-gradient(90deg,#fbbf24,#f59e0b)"></div></div>
+    </div>
+    
+    <div class="score-item">
+      <div class="label">Symmetry</div>
+      <div class="value color-ok">7.3</div>
+      <div class="bar"><div class="bar-fill" style="width:73%;background:linear-gradient(90deg,#fbbf24,#f59e0b)"></div></div>
+    </div>
+    
+    <div class="score-item">
+      <div class="label">Golden Ratio</div>
+      <div class="value color-ok">6.2</div>
+      <div class="bar"><div class="bar-fill" style="width:62%;background:linear-gradient(90deg,#fbbf24,#f59e0b)"></div></div>
+    </div>
+    
+    <div class="score-item" style="grid-column: span 2;">
+      <div class="label">Facial Thirds Balance</div>
+      <div class="value color-improve">3.5</div>
+      <div class="bar"><div class="bar-fill" style="width:35%;background:linear-gradient(90deg,#f87171,#ef4444)"></div></div>
+    </div>
+    
+  </div>
+</div>
+
+<!-- Strengths & Areas for Improvement -->
+<div class="section">
+  <h2><span class="icon">💎</span> Strengths & Improvement Areas</h2>
+  
+  <div class="strengths-weaknesses">
+    <div class="sw-col">
+      <h3 class="color-good">✅ Mocne strony</h3>
+      <ul>
+        <li>🎯 <strong>Oczy</strong> — almond shape, pozytywny canthal tilt (~6°), doskonały aspect ratio</li>
+        <li>🎯 <strong>Facial harmony</strong> — proporcje szerokość/wysokość w idealnym zakresie (0.81-0.87)</li>
+        <li>🎯 <strong>Lip balance</strong> — proporcja góra/dół bliska ideałowi</li>
+        <li>🎯 <strong>Podbródek</strong> — dobrze wycentrowany, ~50% dolnej trzeciej</li>
+        <li>🎯 <strong>Kości policzkowe</strong> — szerokie, dobra struktura mid-face</li>
+        <li>🎯 <strong>Okulary</strong> — świetnie dobrane do kształtu twarzy</li>
+      </ul>
+    </div>
+    <div class="sw-col">
+      <h3 class="color-ok">⚡ Do poprawy</h3>
+      <ul>
+        <li>🔧 <strong>Facial thirds</strong> — upper third ~19% (vs ideał 33%) — grzywka kompresuje optycznie czoło</li>
+        <li>🔧 <strong>Jaw definition</strong> — ratio 0.95 (vs ideał 0.75-0.85) — jaw ≈ cheekbone width</li>
+        <li>🔧 <strong>Nos</strong> — szerokość 0.28-0.29 face width (vs ideał 0.20-0.25)</li>
+        <li>🔧 <strong>Symetria brwi</strong> — 54-80% (lewa wyższa/bardziej łukowata)</li>
+        <li>🔧 <strong>Skóra</strong> — lekki cień pod oczami (pod-eye hollowing)</li>
+        <li>🔧 <strong>Fryzura</strong> — niesymetryczna grzywka skraca optycznie twarz</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Detailed Metrics -->
+<div class="section">
+  <h2><span class="icon">📐</span> Detailed Biometrics</h2>
+  
+  <h3 style="font-size:14px;margin-bottom:12px;color:#667eea;">Facial Thirds (vertical proportions)</h3>
+  <div class="metric-row">
+    <span class="metric-label">Upper Third (hairline → brow)</span>
+    <span><span class="metric-value color-improve">~19%</span> <span class="metric-ideal">ideał: 33%</span></span>
+  </div>
+  <div class="metric-row">
+    <span class="metric-label">Middle Third (brow → nose base)</span>
+    <span><span class="metric-value color-ok">~41%</span> <span class="metric-ideal">ideał: 33%</span></span>
+  </div>
+  <div class="metric-row">
+    <span class="metric-label">Lower Third (nose → chin)</span>
+    <span><span class="metric-value color-ok">~40%</span> <span class="metric-ideal">ideał: 33%</span></span>
+  </div>
+  
+  <div class="note-box">
+    ⚠️ Upper third jest sztucznie mały bo grzywka zasłania linię włosów. Prawdziwy ratio jest pewnie bliżej 25-28%. Środkowa i dolna trzecia są lekko wydłużone — typowe dla dłuższych twarzy europejskich.
+  </div>
+  
+  <h3 style="font-size:14px;margin:20px 0 12px;color:#667eea;">Eye Analysis</h3>
+  <div class="metric-row">
+    <span class="metric-label">Eye Aspect Ratio (avg)</span>
+    <span><span class="metric-value color-good">0.319</span> <span class="tag tag-good">IDEAL</span> <span class="metric-ideal">0.25-0.35</span></span>
+  </div>
+  <div class="metric-row">
+    <span class="metric-label">Canthal Tilt (avg)</span>
+    <span><span class="metric-value color-good">+6.2°</span> <span class="tag tag-good">UPTURNED</span> <span class="metric-ideal">4-8° ideal</span></span>
+  </div>
+  <div class="metric-row">
+    <span class="metric-label">IPD / Face Width</span>
+    <span><span class="metric-value color-ok">0.47</span> <span class="metric-ideal">0.40-0.46</span></span>
+  </div>
+  <div class="metric-row">
+    <span class="metric-label">Brow-to-Eye Distance</span>
+    <span><span class="metric-value color-good">2.1x</span> <span class="metric-ideal">1.5-2.5 = masculine</span></span>
+  </div>
+  
+  <h3 style="font-size:14px;margin:20px 0 12px;color:#667eea;">Nose</h3>
+  <div class="metric-row">
+    <span class="metric-label">Nose Width / Face Width</span>
+    <span><span class="metric-value color-ok">0.28</span> <span class="metric-ideal">0.20-0.25 ideal</span></span>
+  </div>
+  <div class="metric-row">
+    <span class="metric-label">Nose / Intercanthal</span>
+    <span><span class="metric-value color-ok">1.07</span> <span class="metric-ideal">≤1.0 ideal</span></span>
+  </div>
+  
+  <h3 style="font-size:14px;margin:20px 0 12px;color:#667eea;">Jaw & Lower Face</h3>
+  <div class="metric-row">
+    <span class="metric-label">Jaw / Cheekbone Ratio</span>
+    <span><span class="metric-value color-ok">0.95</span> <span class="metric-ideal">0.75-0.85 = V-taper</span></span>
+  </div>
+  <div class="metric-row">
+    <span class="metric-label">Facial Index (W/H)</span>
+    <span><span class="metric-value color-good">0.84</span> <span class="tag tag-good">OVAL</span> <span class="metric-ideal">0.75-0.85</span></span>
+  </div>
+  <div class="metric-row">
+    <span class="metric-label">Chin / Lower Third</span>
+    <span><span class="metric-value color-good">0.50</span> <span class="tag tag-good">IDEAL</span> <span class="metric-ideal">0.45-0.55</span></span>
+  </div>
+  
+  <h3 style="font-size:14px;margin:20px 0 12px;color:#667eea;">Golden Ratio (φ = 1.618)</h3>
+  <div class="metric-row">
+    <span class="metric-label">Face Height / Width</span>
+    <span><span class="metric-value">1.19</span> <span class="metric-ideal">φ = 1.618 (dev: ~26%)</span></span>
+  </div>
+  <div class="metric-row">
+    <span class="metric-label">Mouth / Nose Width</span>
+    <span><span class="metric-value">1.16</span> <span class="metric-ideal">φ = 1.618 (dev: ~28%)</span></span>
+  </div>
+  <div class="metric-row">
+    <span class="metric-label">Nose Length / Philtrum</span>
+    <span><span class="metric-value color-good">2.05</span> <span class="metric-ideal">φ = 1.618 (dev: ~5-27%)</span></span>
+  </div>
+</div>
+
+<!-- Personalized Protocol -->
+<div class="section">
+  <h2><span class="icon">🎯</span> Personalized Glow-Up Protocol</h2>
+  
+  <ul class="reco-list">
+    <li>
+      <span class="reco-icon">💇</span>
+      <div class="reco-text">
+        <strong>Fryzura — największy quick win</strong><br>
+        Grzywka kompresuje upper third i optycznie pogrusza twarz. Rozważ: (1) zaczęsanie włosów do góry/na bok żeby odsłonić czoło — wydłuża optycznie twarz i poprawia facial thirds, (2) textured quiff lub messy top z krótszymi bokami — podkreśli kości policzkowe i zdefiniuje jaw. Aktualna fryzura ukrywa jedną z Twoich mocnych stron (proporcje twarzy).
+      </div>
+    </li>
+    <li>
+      <span class="reco-icon">🧔</span>
+      <div class="reco-text">
+        <strong>Jawline definition — minoxidil/zarost</strong><br>
+        Jaw/cheekbone ratio 0.95 = szerokie. Optycznie: lekki zarost na linii żuchwy (stubble) stworzałby shadow/definition i optycznie zwężył dolną twarz. Jeśli zarost nie rośnie równomiernie — minoxidil 5% na żuchwę (6-12 mies.) + dermaroller. Alternatywnie: mewing/proper tongue posture + chewing gum (falim/mastic gum) dla definicji masseter.
+      </div>
+    </li>
+    <li>
+      <span class="reco-icon">👁️</span>
+      <div class="reco-text">
+        <strong>Under-eye area</strong><br>
+        Widoczne lekkie cienie/hollowing pod oczami. Protokół: (1) retinol eye cream 0.025% na noc, (2) kofeinowy krem pod oczy rano (The Ordinary Caffeine Solution), (3) sleep quality — 7-8h minimum, (4) nawodnienie (cienie nasilają się przy dehydracji). Suplementacja: witamina K2 + C (kolagen naczyniowy).
+      </div>
+    </li>
+    <li>
+      <span class="reco-icon">✨</span>
+      <div class="reco-text">
+        <strong>Skincare baseline</strong><br>
+        Skóra ogólnie czysta (CRP <0.6, wątroba idealna — wyniki krwi to potwierdzają). Utrzymuj: SPF 30+ codziennie (nawet w domu przy oknie), gentle cleanser rano/wieczorem, moisturizer. Anti-aging: retinol 0.3% co 2-3 dni (zacznij powoli). Niacinamide 5% na nierówności kolorytu.
+      </div>
+    </li>
+    <li>
+      <span class="reco-icon">💪</span>
+      <div class="reco-text">
+        <strong>Body composition → face gains</strong><br>
+        Już trenujesz siłowo (Upper/Lower split). Utrzymuj — niższy BF% = lepsza definicja jaw i kości policzkowych. Przy ~85kg i aktywnym treningu — utrzymanie/lekki recomp da efekty w twarzy bez konieczności drastycznego cięcia.
+      </div>
+    </li>
+    <li>
+      <span class="reco-icon">👓</span>
+      <div class="reco-text">
+        <strong>Okulary — opcjonalna zmiana</strong><br>
+        Aktualne clear frames pasują dobrze do Twojego face shape. Jeśli chcesz bardziej defined look: spróbuj ciemniejsze/grubsze oprawki (clubmaster/angular) — dodają kontrastu i mogą optycznie zmniejszyć wizualną szerokość nosa. Ale to kosmetyka — obecne są OK.
+      </div>
+    </li>
+    <li>
+      <span class="reco-icon">🧴</span>
+      <div class="reco-text">
+        <strong>Brwi — symetria</strong><br>
+        Lewa brwi jest wyraźnie bardziej łukowata niż prawa (54% symmetry score). Warto: profesjonalny threading/shaping co 4-6 tygodni. Cel: wyrównanie łuku obu brwi. NIE wax — threading daje precyzyjniejszy kształt. Męski brow shaping jest normalny i robi dużą różnicę.
+      </div>
+    </li>
+  </ul>
+</div>
+
+<!-- Priority Timeline -->
+<div class="section">
+  <h2><span class="icon">📅</span> Priority Timeline</h2>
+  
+  <div class="metric-row">
+    <span class="metric-label"><strong>Tydzień 1-2</strong></span>
+    <span class="metric-value" style="font-size:13px;font-weight:400;">Skincare routine (SPF, cleanser, moisturizer). Brow appointment.</span>
+  </div>
+  <div class="metric-row">
+    <span class="metric-label"><strong>Tydzień 2-4</strong></span>
+    <span class="metric-value" style="font-size:13px;font-weight:400;">Zmiana fryzury (odsłonięte czoło, texture top). Under-eye cream.</span>
+  </div>
+  <div class="metric-row">
+    <span class="metric-label"><strong>Miesiąc 1-3</strong></span>
+    <span class="metric-value" style="font-size:13px;font-weight:400;">Retinol (powoli zwiększaj). Minoxidil na jawline jeśli zarost pożądany.</span>
+  </div>
+  <div class="metric-row">
+    <span class="metric-label"><strong>Miesiąc 3-6</strong></span>
+    <span class="metric-value" style="font-size:13px;font-weight:400;">Kontynuuj routine. Re-evaluate body comp. Zarost powinien zacząć wchodzić.</span>
+  </div>
+  <div class="metric-row">
+    <span class="metric-label"><strong>Miesiąc 6-12</strong></span>
+    <span class="metric-value" style="font-size:13px;font-weight:400;">Pełne efekty skincare (retinol remodeling). Porównanie zdjęć before/after.</span>
+  </div>
+</div>
+
+<!-- ChatGPT Morph Prompt -->
+<div class="section">
+  <h2><span class="icon">🤖</span> ChatGPT Morph Prompt</h2>
+  <p style="font-size:13px;color:#9b9bb0;margin-bottom:12px;">Skopiuj poniższy prompt i wklej go do ChatGPT (GPT-4o) razem z najlepszym zdjęciem frontalnym. ChatGPT wygeneruje "best version" wizualizację.</p>
+  
+  <div class="prompt-box">I'm attaching a frontal photo of a 28-year-old European (Polish) male. Based on the following facial aesthetics analysis data, please create a realistic "enhanced version" visualization of this person. Make subtle, natural-looking modifications — this should look like the same person on their best day, NOT a different person.
+
+ANALYSIS DATA:
+- Face shape: Oval (facial index 0.84) — this is already ideal, preserve it
+- Eyes: Almond-shaped, positive canthal tilt (+6°) — these are a strong feature, keep them prominent  
+- Nose: Slightly wider than ideal (0.28 vs 0.20-0.25 of face width) — narrow very slightly
+- Jaw: Jaw-to-cheekbone ratio 0.95 (ideal is 0.75-0.85) — add subtle jawline definition/shadow to create more V-taper
+- Under-eyes: Slight hollowing/dark circles — smooth and brighten this area
+- Eyebrows: Asymmetric (left more arched) — even them out slightly, keep masculine flat shape
+- Skin: Generally clear — make it slightly more even-toned and luminous
+- Hair: Currently messy bangs covering forehead — restyle to a textured quiff or swept-back style that exposes the forehead (this improves facial thirds from 19/41/40 closer to 28/36/36)
+- Facial hair: Currently clean-shaven — add light stubble along the jawline for definition
+
+IMPORTANT CONSTRAINTS:
+1. Keep it REALISTIC — no AI-perfect skin, no uncanny valley
+2. Preserve his identity — same person, enhanced presentation  
+3. Keep the clear-frame glasses (they suit his face well)
+4. The changes should be achievable non-surgically (hairstyle, skincare, grooming)
+5. Focus on: hairstyle change (biggest impact), jawline definition via stubble, under-eye improvement, eyebrow symmetry, slightly refined nose contour
+6. Output a side-by-side comparison if possible (original vs enhanced)
+7. Make the enhanced version look like "him after 6 months of a good skincare routine and a better barber"</div>
+</div>
+
+<!-- Methodology -->
+<div class="section">
+  <h2><span class="icon">🔬</span> Methodology</h2>
+  <div style="font-size:13px;color:#9b9bb0;">
+    <p><strong>Tool:</strong> MediaPipe FaceLandmarker (478-point mesh, Tasks API v0.10.33)</p>
+    <p><strong>Photos analyzed:</strong> 3 z 5 (2 odrzucone — brak detekcji twarzy z powodu kąta/dystansu)</p>
+    <p><strong>Reference standards:</strong> Neoclassical facial canons, Golden Ratio (φ=1.618), cephalometric norms for European males (Farkas et al., Powell & Humphreys)</p>
+    <p><strong>Scoring:</strong> 0-10 scale, distance from ideal range with sigmoid falloff</p>
+    <p style="margin-top:8px;"><strong>Ograniczenia:</strong> Selfie z ręki = distorsja perspektywiczna (nos wydaje się większy, jaw węższa). Okulary mogą zakłócać landmark detection wokół oczu. Grzywka uniemożliwia dokładny pomiar upper third. Dla najdokładniejszych wyników idealne byłoby zdjęcie frontal + profil z tripoda w naturalnym świetle.</p>
+  </div>
+</div>
+
+<div class="disclaimer">
+  🦖 Claw Studio • Wygenerowano 6 kwietnia 2026<br>
+  To jest analiza informacyjna, nie medyczna. Konsultuj zmiany z dermatologiem/specjalistą.
+</div>
+
+</div>
+</body>
+</html>

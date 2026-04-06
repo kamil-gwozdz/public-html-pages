@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skincare Masterplan — Kamil</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',-apple-system,sans-serif; background:#0a0a0f; color:#e8e8ee; line-height:1.65; padding:40px 20px; }
+  .c { max-width:800px; margin:0 auto; }
+  
+  .hdr { text-align:center; margin-bottom:40px; padding-bottom:24px; border-bottom:1px solid #1a1a2e; }
+  .hdr h1 { font-size:26px; font-weight:700; background:linear-gradient(135deg,#667eea,#764ba2); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .hdr .sub { font-size:12px; color:#6b6b80; margin-top:4px; }
+  
+  .s { margin-bottom:28px; background:#12121c; border-radius:14px; padding:24px; border:1px solid #1a1a2e; }
+  .s h2 { font-size:17px; font-weight:600; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+  .s h3 { font-size:14px; font-weight:600; color:#667eea; margin:16px 0 10px; }
+  .s h4 { font-size:13px; font-weight:600; color:#9b9bb0; margin:12px 0 8px; }
+  
+  .note { background:#0d0d16; border-left:3px solid #667eea; padding:12px 14px; border-radius:0 8px 8px 0; font-size:12px; color:#9b9bb0; margin:10px 0; }
+  .note strong { color:#c0c0d0; }
+  .warn { background:#0d0d16; border-left:3px solid #f59e0b; padding:12px 14px; border-radius:0 8px 8px 0; font-size:12px; color:#9b9bb0; margin:10px 0; }
+  .warn strong { color:#fbbf24; }
+  .danger { background:#0d0d16; border-left:3px solid #ef4444; padding:12px 14px; border-radius:0 8px 8px 0; font-size:12px; color:#9b9bb0; margin:10px 0; }
+  .danger strong { color:#f87171; }
+  
+  .prod { background:#0a0a14; border:1px solid #1a1a2e; border-radius:8px; padding:12px 14px; margin:8px 0; }
+  .prod-head { display:flex; justify-content:space-between; align-items:flex-start; }
+  .prod-name { font-size:14px; font-weight:600; }
+  .prod-price { font-size:13px; color:#667eea; font-weight:600; }
+  .prod-what { font-size:12px; color:#4ade80; margin-top:2px; }
+  .prod-desc { font-size:12px; color:#9b9bb0; margin-top:6px; line-height:1.5; }
+  .prod-how { font-size:12px; color:#c0c0d0; margin-top:6px; line-height:1.5; }
+  .prod-link { font-size:11px; color:#667eea; margin-top:4px; word-break:break-all; }
+  
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:12px 0; }
+  .box { background:#0d0d16; border-radius:10px; padding:14px; border:1px solid #1a1a2e; }
+  .box h4 { font-size:13px; font-weight:600; margin-bottom:8px; color:#e8e8ee; }
+  .step { font-size:12px; color:#9b9bb0; padding:4px 0; display:flex; gap:8px; align-items:flex-start; }
+  .step-n { color:#667eea; font-weight:600; min-width:20px; }
+  .step-wait { color:#f59e0b; font-size:11px; }
+  
+  .phase { border-left:3px solid #667eea; padding-left:16px; margin:16px 0; }
+  .phase-h { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+  .phase-t { font-size:14px; font-weight:600; }
+  .phase-w { font-size:11px; color:#667eea; background:#1a1a30; padding:2px 8px; border-radius:4px; }
+  
+  table.compat { width:100%; border-collapse:collapse; margin:10px 0; font-size:12px; }
+  table.compat th { text-align:left; padding:6px 8px; background:#0d0d16; color:#9b9bb0; border-bottom:1px solid #1a1a2e; font-weight:500; }
+  table.compat td { padding:6px 8px; border-bottom:1px solid #0d0d16; }
+  .yes { color:#4ade80; }
+  .no { color:#f87171; }
+  .caut { color:#fbbf24; }
+  
+  .cal { background:#0d0d16; border-radius:10px; padding:14px; margin:8px 0; border:1px solid #1a1a2e; }
+  .cal-day { font-size:12px; font-weight:600; color:#667eea; }
+  .cal-am, .cal-pm { font-size:11px; color:#9b9bb0; padding-left:12px; }
+  
+  .disc { text-align:center; font-size:11px; color:#3a3a4e; margin-top:36px; padding-top:16px; border-top:1px solid #1a1a2e; }
+</style>
+</head>
+<body>
+<div class="c">
+
+<div class="hdr">
+  <h1>🧴 Skincare Masterplan</h1>
+  <div class="sub">Kompletny przewodnik od zera • Spersonalizowany pod Twoje potrzeby</div>
+  <div class="sub">Kamil, 28, skóra normalna/mieszana • Problemy: cienie pod oczami, texture, anti-aging</div>
+</div>
+
+<!-- ===== TWÓJ PROFIL SKÓRY ===== -->
+<div class="s">
+  <h2>🔬 Twój profil skóry (na bazie zdjęć + wyników krwi)</h2>
+  
+  <div class="grid2">
+    <div class="box">
+      <h4>✅ Co jest dobrze</h4>
+      <div class="step">• Brak trądziku / stanów zapalnych</div>
+      <div class="step">• CRP <0.6 — zero ogólnoustrojowego stanu zapalnego</div>
+      <div class="step">• Wątroba idealna (ALT/AST/GGTP) — skóra nie jest obciążona toksynami</div>
+      <div class="step">• Testosteron 723 ng/dl — dobra regeneracja skóry</div>
+      <div class="step">• Ferrytyna 86 — żelazo OK (niedobór = blada skóra)</div>
+      <div class="step">• HbA1c 5.2% — glikacja kolagenu minimalna</div>
+    </div>
+    <div class="box">
+      <h4>⚡ Do poprawy</h4>
+      <div class="step">• <strong>Cienie pod oczami</strong> — hollowing + lekka pigmentacja</div>
+      <div class="step">• <strong>Tekstura skóry</strong> — lekkie nierówności, brak glow</div>
+      <div class="step">• <strong>Brak SPF</strong> — fotostarzenie = #1 przyczyna starzenia się skóry</div>
+      <div class="step">• <strong>HDL 43</strong> (dolna granica) — może wpływać na jakość skóry</div>
+      <div class="step">• <strong>Brak rutyny</strong> — skóra nie dostaje tego czego potrzebuje</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PRODUKTY — PEŁNA LISTA ===== -->
+<div class="s">
+  <h2>🛒 Produkty — co kupić i po co</h2>
+  <div style="font-size:12px;color:#6b6b80;margin-bottom:12px;">Kolejność = kolejność wprowadzania. Nie kupuj wszystkiego na raz — dodawaj stopniowo.</div>
+  
+  <h3>Tydzień 1 — Baza (obowiązkowe)</h3>
+  
+  <div class="prod">
+    <div class="prod-head">
+      <div>
+        <div class="prod-name">1. The Ordinary Squalane Cleanser (150ml)</div>
+        <div class="prod-what">🧹 Oczyszczanie</div>
+      </div>
+      <div class="prod-price">~9.80€</div>
+    </div>
+    <div class="prod-desc">
+      <strong>Co to robi:</strong> Rozpuszcza sebum, brud i SPF bez niszczenia bariery lipidowej skóry. Squalane = naturalny lipid obecny w skórze, więc nie suszy. Konsystencja olejowa → zmienia się w mleczko po kontakcie z wodą.
+    </div>
+    <div class="prod-how">
+      <strong>Jak używać:</strong> Wyciśnij ~2cm na suche dłonie. Rozetrzyj aż zmieni konsystencję (10 sek). Masuj po suchej twarzy ruchami okrężnymi 30 sek. Spłucz ciepłą (nie gorącą!) wodą. Delikatnie osusz ręcznikiem (nie wycieraj — tapkaj).<br>
+      <strong>Kiedy:</strong> Rano + wieczorem. Codziennie.<br>
+      <strong>Ile starczy:</strong> ~2 miesiące.
+    </div>
+    <div class="prod-link">theordinary.com/en-de → szukaj "Squalane Cleanser"</div>
+  </div>
+
+  <div class="prod">
+    <div class="prod-head">
+      <div>
+        <div class="prod-name">2. The Ordinary Natural Moisturizing Factors + HA (100ml)</div>
+        <div class="prod-what">💧 Nawilżanie</div>
+      </div>
+      <div class="prod-price">~13.90€</div>
+    </div>
+    <div class="prod-desc">
+      <strong>Co to robi:</strong> Odtwarza naturalną barierę ochronną skóry. Zawiera aminokwasy, ceramidy, kwas hialuronowy, mocznik, fosfolipidy — to wszystko naturalnie występuje w zdrowej skórze. Nie jest "kremem na wierzch" — uzupełnia to co skóra traci w ciągu dnia.
+    </div>
+    <div class="prod-how">
+      <strong>Jak używać:</strong> Ilość wielkości ziarna grochu. Rozprowadź po LEKKO WILGOTNEJ twarzy (HA działa najlepiej gdy jest woda do złapania). Łagodne ruchy w górę, nie wcieraj agresywnie. Obejmij szyję.<br>
+      <strong>Kiedy:</strong> Rano + wieczorem, ZAWSZE po cleansingu. Ostatni krok wieczorem. Przedostatni rano (SPF idzie na wierzch).<br>
+      <strong>Ile starczy:</strong> ~2.5 miesiąca.
+    </div>
+  </div>
+  
+  <div class="prod">
+    <div class="prod-head">
+      <div>
+        <div class="prod-name">3. The Ordinary Caffeine Solution 5% + EGCG (30ml)</div>
+        <div class="prod-what">👁️ Under-eye</div>
+      </div>
+      <div class="prod-price">~8.70€</div>
+    </div>
+    <div class="prod-desc">
+      <strong>Co to robi:</strong> Kofeina 5% zwęża naczynia krwionośne pod oczami → redukuje ciemne cienie (naczyniowe). EGCG (z zielonej herbaty) = antyoksydant, chroni delikatną skórę pod oczami. Zmniejsza opuchliznę i poprawia mikrocyrkulację.
+    </div>
+    <div class="prod-how">
+      <strong>Jak używać:</strong> 1-2 krople na serdeczny palec (najdelikatniejszy). Delikatnie wklepuj (nie rozcieraj!) w okolicę pod oczami — od wewnętrznego kącika na zewnątrz. Nie ciągnij skóry! Możesz też na powieki.<br>
+      <strong>Kiedy:</strong> Rano, po cleansingu, PRZED moisturizerem.<br>
+      <strong>Ile starczy:</strong> ~3 miesiące (pod oczy mało schodzi).<br>
+      <strong>Efekty:</strong> Pierwsze widoczne po 2-3 tygodniach regularnego stosowania.
+    </div>
+  </div>
+  
+  <div class="prod">
+    <div class="prod-head">
+      <div>
+        <div class="prod-name">4. La Roche-Posay Anthelios UVMune 400 Fluid SPF50+ (50ml)</div>
+        <div class="prod-what">☀️ Ochrona przeciwsłoneczna</div>
+      </div>
+      <div class="prod-price">~16€</div>
+    </div>
+    <div class="prod-desc">
+      <strong>Co to robi:</strong> Blokuje promieniowanie UVA + UVB + UVA1 (ultra-long wave). 80% starzenia się skóry to fotostarzenie — promieniowanie UV rozkłada kolagen i elastynę. SPF jest THE SINGLE MOST EFFECTIVE anti-aging product. Nie krem, nie retinol — SPF. Nawet w domu przy oknie — UVA przenika przez szkło.
+    </div>
+    <div class="prod-how">
+      <strong>Jak używać:</strong> 2 palce (wskazujący + środkowy) — tyle kremu musisz nałożyć na twarz. Większość ludzi daje za mało. Rozprowadź równomiernie po całej twarzy + szyi + uszy. NIE wcieraj zbyt mocno — każde wcieranie redukuje grubość warstwy.<br>
+      <strong>Kiedy:</strong> Rano, jako OSTATNI krok (na wierzch moisturizera). Co 2h jeśli jesteś na słońcu. W domu — raz rano wystarczy.<br>
+      <strong>Ile starczy:</strong> ~5-6 tygodni (przy prawidłowej ilości).<br>
+      <strong>⚠️ Nawet w pochmurny dzień.</strong> 80% UV przenika przez chmury.
+    </div>
+    <div class="note">
+      <strong>💡 Dlaczego La Roche-Posay a nie The Ordinary SPF?</strong> LRP Anthelios to złoty standard europejski — ultra-lekka konsystencja, zero białego filmu, najlepsza ochrona UVA na rynku (filtr Mexoryl 400, opatentowany). TO SPF nie jest jak inne — jest jednym z niewielu EU-approved przeciw UVA1, które powoduje głębokie starzenie skóry. The Ordinary SPF jest OK ale cięższy i mniej elegancki.
+    </div>
+  </div>
+  
+  <h3>Tydzień 3 — Upgrade #1</h3>
+  
+  <div class="prod">
+    <div class="prod-head">
+      <div>
+        <div class="prod-name">5. The Ordinary Niacinamide 10% + Zinc 1% (60ml)</div>
+        <div class="prod-what">✨ Wyrównanie kolorytu + pory</div>
+      </div>
+      <div class="prod-price">~9.40€</div>
+    </div>
+    <div class="prod-desc">
+      <strong>Co to robi:</strong> Niacinamide (witamina B3) = wielofunkcyjny bohater. Reguluje produkcję sebum, zmniejsza widoczność porów, wyrównuje koloryt (plamy, przebarwienia), wzmacnia barierę skóry, zmniejsza zaczerwienienia. Cynk ma działanie przeciwzapalne.
+    </div>
+    <div class="prod-how">
+      <strong>Jak używać:</strong> 3-4 krople na dłoń, rozprowadź po całej twarzy. Lekka, wodna konsystencja — wchłania się szybko.<br>
+      <strong>Kiedy:</strong> Rano + wieczorem, PO cleansingu, PRZED moisturizerem. Można łączyć z caffeine (caffeine pod oczy, niacinamide na resztę twarzy).<br>
+      <strong>⚠️ Nie łącz z:</strong> witaminą C w tym samym kroku (mogą się neutralizować). Oddziel: niacinamide rano, witamina C wieczorem (lub odwrotnie).
+    </div>
+  </div>
+  
+  <h3>Tydzień 5 — Upgrade #2 (aktywne)</h3>
+  
+  <div class="prod">
+    <div class="prod-head">
+      <div>
+        <div class="prod-name">6. The Ordinary Retinol 0.2% in Squalane (30ml)</div>
+        <div class="prod-what">🔄 Anti-aging + texture</div>
+      </div>
+      <div class="prod-price">~6.50€</div>
+    </div>
+    <div class="prod-desc">
+      <strong>Co to robi:</strong> Retinol = pochodna witaminy A = złoty standard anti-aging (obok SPF). Przyspiesza obrót komórek naskórka (stare złuszczają się szybciej, nowe rosną szybciej). Stymuluje produkcję kolagenu. Zmniejsza drobne zmarszczki, wyrównuje teksturę, rozjaśnia przebarwienia. 0.2% = delikatna dawka startowa.
+    </div>
+    <div class="prod-how">
+      <strong>Jak używać:</strong>
+      <br>• <strong>Tydzień 5-6:</strong> 2x/tydzień (np. pon + czw)
+      <br>• <strong>Tydzień 7-8:</strong> co 2 dzień
+      <br>• <strong>Tydzień 9+:</strong> co noc (jeśli brak irytacji)
+      <br><br>
+      <strong>Aplikacja:</strong> Wieczorem, na SUCHĄ, oczyszczoną skórę. 3-4 krople. Rozprowadź równomiernie. Odczekaj 5-10 min → moisturizer na wierzch. Unikaj okolic oczu (chyba że mikro-dawka celowo pod oczy).<br>
+      <strong>⚠️ BUFFERING:</strong> Jeśli masz wrażliwą skórę lub piecze — zastosuj "sandwich method": moisturizer → retinol → moisturizer. Chroni skórę, zmniejsza irytację, nie obniża efektywności.
+    </div>
+    <div class="danger">
+      <strong>🚨 OBOWIĄZKOWE zasady retinolu:</strong><br>
+      1. SPF MUSISZ stosować codziennie — retinol uwrażliwia na UV<br>
+      2. Nigdy nie łącz z: AHA/BHA (kwasy złuszczające), witaminą C tego samego wieczoru, benzoyl peroxide<br>
+      3. Pierwsze 2-3 tyg może być "retinol purge" — drobne pryszcze. To NORMALNE — stare zanieczyszczenia wychodzą szybciej<br>
+      4. Jeśli skóra się łuszczy/piecze → zmniejsz częstotliwość, dodaj więcej moisturizera<br>
+      5. NIE stosuj dzień przed/po zabiegach (peeling, laser, itp.)
+    </div>
+  </div>
+  
+  <h3>Miesiąc 2+ — Opcjonalne upgrade'y</h3>
+  
+  <div class="prod">
+    <div class="prod-head">
+      <div>
+        <div class="prod-name">7. The Ordinary Hyaluronic Acid 2% + B5 (60ml)</div>
+        <div class="prod-what">💧 Głębokie nawilżenie</div>
+      </div>
+      <div class="prod-price">~9.60€</div>
+    </div>
+    <div class="prod-desc">
+      <strong>Co to robi:</strong> HA wiąże 1000x swoją wagę w wodzie. 3 rozmiary cząsteczek — nawilża zarówno powierzchnię jak i głębokie warstwy skóry. B5 (pantenol) = regeneracja + kojenie.
+    </div>
+    <div class="prod-how">
+      <strong>Jak używać:</strong> 2-3 krople na MOKRĄ twarz (po cleansingu, przed wysuszeniem). HA potrzebuje wody do złapania — na suchej skórze wyciąga wodę Z skóry zamiast do niej. Potem niacinamide → moisturizer.<br>
+      <strong>Kiedy:</strong> Rano + wieczorem. Opcjonalne — jeśli skóra jest sucha mimo NMF.
+    </div>
+  </div>
+  
+  <div class="prod">
+    <div class="prod-head">
+      <div>
+        <div class="prod-name">8. The Ordinary Retinol 0.5% in Squalane (30ml)</div>
+        <div class="prod-what">🔄 Anti-aging upgrade</div>
+      </div>
+      <div class="prod-price">~7.70€</div>
+    </div>
+    <div class="prod-desc">
+      <strong>Co to robi:</strong> Mocniejsza wersja retinolu. Przejdź na 0.5% po 2-3 miesiącach na 0.2% jeśli skóra dobrze toleruje. Silniejsza stymulacja kolagenu, szybsze efekty.
+    </div>
+    <div class="prod-how">
+      <strong>Kiedy upgrade:</strong> Nie wcześniej niż po 8 tygodniach na 0.2%. Jeśli 0.2% nie powoduje żadnej irytacji i stosujesz co noc → gotowy na 0.5%. Zacznij 0.5% od 2x/tyg (jak na początku z 0.2%).
+    </div>
+  </div>
+</div>
+
+<!-- ===== KOLEJNOŚĆ NAKŁADANIA ===== -->
+<div class="s">
+  <h2>📐 Kolejność nakładania — zasada ogólna</h2>
+  
+  <div class="note">
+    <strong>Zasada:</strong> Od najcieńszej do najgrubszej konsystencji. Wodne serum → olejowe serum → krem → SPF. Aktywne substancje (retinol, niacinamide) idą PRZED moisturizerem — bliżej skóry = lepsza penetracja.
+  </div>
+  
+  <div class="grid2">
+    <div class="box">
+      <h4>☀️ Rano (pełna rutyna, ~5 min)</h4>
+      <div class="step"><span class="step-n">1.</span> <strong>Cleanser</strong> (Squalane Cleanser)</div>
+      <div class="step"><span class="step-n">2.</span> <strong>HA serum</strong> na mokrą twarz (opcj., od M2)</div>
+      <div class="step"><span class="step-n">3.</span> <strong>Niacinamide</strong> (od W3)</div>
+      <div class="step"><span class="step-n">4.</span> <strong>Caffeine</strong> pod oczy</div>
+      <div class="step step-wait">↕ odczekaj ~1 min na wchłonięcie</div>
+      <div class="step"><span class="step-n">5.</span> <strong>Moisturizer</strong> (NMF + HA)</div>
+      <div class="step step-wait">↕ odczekaj ~2 min</div>
+      <div class="step"><span class="step-n">6.</span> <strong>SPF 50</strong> (La Roche-Posay) — ZAWSZE ostatni</div>
+    </div>
+    <div class="box">
+      <h4>🌙 Wieczór (pełna rutyna, ~5 min)</h4>
+      <div class="step"><span class="step-n">1.</span> <strong>Cleanser</strong> (Squalane Cleanser)</div>
+      <div class="step"><span class="step-n">2.</span> <strong>HA serum</strong> na mokrą twarz (opcj., od M2)</div>
+      <div class="step"><span class="step-n">3.</span> <strong>Niacinamide</strong> (w noce BEZ retinolu)</div>
+      <div class="step"><span class="step-n">—</span> <em>LUB</em></div>
+      <div class="step"><span class="step-n">3.</span> <strong>Retinol</strong> na suchą skórę (w noce retinolowe, od W5)</div>
+      <div class="step step-wait">↕ odczekaj 5-10 min na wchłonięcie retinolu</div>
+      <div class="step"><span class="step-n">4.</span> <strong>Moisturizer</strong> (NMF + HA)</div>
+    </div>
+  </div>
+  
+  <div class="warn">
+    <strong>⚠️ Niacinamide + Retinol tego samego wieczoru?</strong> Technicznie można, ale na początku lepiej rozdzielić. Niacinamide rano, retinol wieczorem. Po 4-6 tygodniach jak skóra się przyzwyczai — możesz łączyć (niacinamide → poczekaj 10 min → retinol).
+  </div>
+</div>
+
+<!-- ===== TYGODNIOWY HARMONOGRAM ===== -->
+<div class="s">
+  <h2>📅 Tygodniowy harmonogram (po pełnym ramp-up)</h2>
+  
+  <div class="cal">
+    <div class="cal-day">🟢 Poniedziałek — RETINOL NIGHT</div>
+    <div class="cal-am">Rano: Cleanser → Niacinamide → Caffeine → Moisturizer → SPF</div>
+    <div class="cal-pm">Wieczór: Cleanser → Retinol (czekaj 10 min) → Moisturizer</div>
+  </div>
+  <div class="cal">
+    <div class="cal-day">⚪ Wtorek — REST NIGHT</div>
+    <div class="cal-am">Rano: Cleanser → Niacinamide → Caffeine → Moisturizer → SPF</div>
+    <div class="cal-pm">Wieczór: Cleanser → Niacinamide → Moisturizer</div>
+  </div>
+  <div class="cal">
+    <div class="cal-day">🟢 Środa — RETINOL NIGHT</div>
+    <div class="cal-am">Rano: Cleanser → Niacinamide → Caffeine → Moisturizer → SPF</div>
+    <div class="cal-pm">Wieczór: Cleanser → Retinol → Moisturizer</div>
+  </div>
+  <div class="cal">
+    <div class="cal-day">⚪ Czwartek — REST NIGHT</div>
+    <div class="cal-am">Rano: j.w.</div>
+    <div class="cal-pm">Wieczór: Cleanser → Niacinamide → Moisturizer</div>
+  </div>
+  <div class="cal">
+    <div class="cal-day">🟢 Piątek — RETINOL NIGHT</div>
+    <div class="cal-am">Rano: j.w.</div>
+    <div class="cal-pm">Wieczór: Cleanser → Retinol → Moisturizer</div>
+  </div>
+  <div class="cal">
+    <div class="cal-day">⚪ Sobota — REST NIGHT</div>
+    <div class="cal-am">Rano: j.w.</div>
+    <div class="cal-pm">Wieczór: Cleanser → Niacinamide → Moisturizer</div>
+  </div>
+  <div class="cal">
+    <div class="cal-day">⚪ Niedziela — REST NIGHT</div>
+    <div class="cal-am">Rano: j.w.</div>
+    <div class="cal-pm">Wieczór: Cleanser → Niacinamide → Moisturizer</div>
+  </div>
+  
+  <div style="font-size:11px;color:#4a4a5e;margin-top:8px;">
+    To jest harmonogram startowy (co 2 noc). Po 4-6 tyg bez irytacji → retinol co noc (Pn-Nd wieczory wszystkie = retinol).
+  </div>
+</div>
+
+<!-- ===== COMPATIBILITY MATRIX ===== -->
+<div class="s">
+  <h2>⚗️ Co łączyć, co nie — cheat sheet</h2>
+  
+  <table class="compat">
+    <tr>
+      <th>Kombinacja</th>
+      <th>OK?</th>
+      <th>Uwagi</th>
+    </tr>
+    <tr>
+      <td>Niacinamide + Caffeine</td>
+      <td class="yes">✅ TAK</td>
+      <td>Idealny duet poranny</td>
+    </tr>
+    <tr>
+      <td>Niacinamide + Retinol</td>
+      <td class="caut">⚠️ OSTROŻNIE</td>
+      <td>Można, ale rozdziel na początku. Łącz po 4-6 tyg</td>
+    </tr>
+    <tr>
+      <td>Retinol + SPF</td>
+      <td class="yes">✅ OBOWIĄZKOWE</td>
+      <td>SPF jest non-negotiable przy retinolu</td>
+    </tr>
+    <tr>
+      <td>Retinol + AHA/BHA (kwasy)</td>
+      <td class="no">❌ NIE</td>
+      <td>Nie tego samego wieczoru — mega irytacja</td>
+    </tr>
+    <tr>
+      <td>Retinol + Witamina C</td>
+      <td class="no">❌ NIE razem</td>
+      <td>Różne pH — vit C rano, retinol wieczór</td>
+    </tr>
+    <tr>
+      <td>Retinol + Benzoyl Peroxide</td>
+      <td class="no">❌ NIE</td>
+      <td>BP deaktywuje retinol</td>
+    </tr>
+    <tr>
+      <td>HA + cokolwiek</td>
+      <td class="yes">✅ TAK</td>
+      <td>HA jest bezpieczny ze wszystkim</td>
+    </tr>
+    <tr>
+      <td>Caffeine + Retinol</td>
+      <td class="yes">✅ TAK</td>
+      <td>Caffeine rano, retinol wieczór = ideał</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ===== RAMP-UP TIMELINE ===== -->
+<div class="s">
+  <h2>🚀 Ramp-up plan — kiedy co dodać</h2>
+  
+  <div class="phase">
+    <div class="phase-h"><span class="phase-t">Tydzień 1-2: Baza</span><span class="phase-w">4 produkty</span></div>
+    <div style="font-size:12px;color:#9b9bb0;">
+      ☐ Cleanser rano + wieczór<br>
+      ☐ Moisturizer rano + wieczór<br>
+      ☐ Caffeine pod oczy rano<br>
+      ☐ SPF rano<br><br>
+      <em>Cel: przyzwyczaić skórę do rutyny. Obserwuj reakcje.</em>
+    </div>
+  </div>
+  
+  <div class="phase" style="border-left-color:#60a5fa;">
+    <div class="phase-h"><span class="phase-t">Tydzień 3-4: + Niacinamide</span><span class="phase-w">5 produktów</span></div>
+    <div style="font-size:12px;color:#9b9bb0;">
+      ☐ Dodaj Niacinamide rano + wieczór (po cleansingu, przed moisturizerem)<br><br>
+      <em>Cel: wyrównanie kolorytu, kontrola porów. Niacinamide jest łagodny — zero ramp-up.</em>
+    </div>
+  </div>
+  
+  <div class="phase" style="border-left-color:#fbbf24;">
+    <div class="phase-h"><span class="phase-t">Tydzień 5-6: + Retinol 0.2%</span><span class="phase-w">6 produktów</span></div>
+    <div style="font-size:12px;color:#9b9bb0;">
+      ☐ Dodaj Retinol 0.2% — TYLKO 2 noce/tydzień<br>
+      ☐ W noce retinolowe: skip niacinamide wieczorem<br><br>
+      <em>Cel: rozpocząć stymulację kolagenu. WOLNO. Obserwuj irytację.</em>
+    </div>
+  </div>
+  
+  <div class="phase" style="border-left-color:#4ade80;">
+    <div class="phase-h"><span class="phase-t">Tydzień 7-8: ↑ Retinol częstotliwość</span><span class="phase-w">6 produktów</span></div>
+    <div style="font-size:12px;color:#9b9bb0;">
+      ☐ Retinol → co 2 noc (3-4x/tyg)<br>
+      ☐ Jeśli zero irytacji: spróbuj niacinamide + retinol tego samego wieczoru (niac → 10 min → ret)<br><br>
+      <em>Cel: zwiększenie ekspozycji skóry na retinol.</em>
+    </div>
+  </div>
+  
+  <div class="phase" style="border-left-color:#a78bfa;">
+    <div class="phase-h"><span class="phase-t">Tydzień 9+: Pełna moc</span><span class="phase-w">6-7 produktów</span></div>
+    <div style="font-size:12px;color:#9b9bb0;">
+      ☐ Retinol co noc<br>
+      ☐ Opcjonalnie: dodaj HA serum (jeśli suchość)<br>
+      ☐ Po 2-3 mies.: rozważ upgrade na Retinol 0.5%<br><br>
+      <em>Full routine = autopilot. 5 min rano, 5 min wieczór.</em>
+    </div>
+  </div>
+</div>
+
+<!-- ===== UNDER-EYE SPECIAL PROTOCOL ===== -->
+<div class="s">
+  <h2>👁️ Protokół pod-oczy (Twój main concern)</h2>
+  
+  <div style="font-size:13px;color:#9b9bb0;">
+    Cienie pod oczami mają 3 przyczyny. Musisz adresować WSZYSTKIE:
+  </div>
+  
+  <div class="grid2" style="grid-template-columns:1fr 1fr 1fr;">
+    <div class="box">
+      <h4 style="color:#60a5fa;">1. Naczyniowe</h4>
+      <div style="font-size:11px;color:#9b9bb0;">
+        Ciemne żyłki prześwitujące przez cienką skórę<br><br>
+        <strong>Fix:</strong> Caffeine Solution (zwęża naczynia) + Witamina K2 (suplement — wzmacnia ściany naczyń)
+      </div>
+    </div>
+    <div class="box">
+      <h4 style="color:#fbbf24;">2. Hollowing</h4>
+      <div style="font-size:11px;color:#9b9bb0;">
+        Utrata podskórnej tkanki tłuszczowej = cień<br><br>
+        <strong>Fix:</strong> Retinol (stymuluje kolagen), nawodnienie 2.5L+/dzień, sen 7-8h, wyższa poduszka (mniej retencji)
+      </div>
+    </div>
+    <div class="box">
+      <h4 style="color:#a78bfa;">3. Pigmentacja</h4>
+      <div style="font-size:11px;color:#9b9bb0;">
+        Hiperpigmentacja skóry pod oczami<br><br>
+        <strong>Fix:</strong> Niacinamide (hamuje melaninę), SPF (blokuje UV który ciemni), retinol (przyspiesza złuszczanie)
+      </div>
+    </div>
+  </div>
+  
+  <div class="note">
+    <strong>💡 Realistyczne oczekiwania:</strong> Skincare poprawi cienie o 40-60%. Pełna eliminacja jest możliwa tylko z filler (kwas hialuronowy pod oczy — zabieg ~250-400€, powtarzany co 12-18 mies.). To jest opcja "nuclear" — NIE potrzebna, ale warto wiedzieć że istnieje.
+  </div>
+</div>
+
+<!-- ===== DIET SUPPORT ===== -->
+<div class="s">
+  <h2>🥑 Wsparcie od wewnątrz</h2>
+  <div style="font-size:13px;color:#9b9bb0;">
+    Skóra to organ — to co jesz ma wpływ. Na bazie Twoich wyników krwi:
+  </div>
+  
+  <div class="prod">
+    <div class="prod-name">Omega-3 (EPA/DHA)</div>
+    <div class="prod-desc">HDL 43 (dolna granica) → omega-3 podnosi HDL + nawilża skórę od środka + zmniejsza stany zapalne. Źródło: ryby tłuste 2x/tyg (łosoś, makrela) LUB suplement fish oil 1000mg/dzień.</div>
+  </div>
+  <div class="prod">
+    <div class="prod-name">Witamina C (500-1000mg/dzień)</div>
+    <div class="prod-desc">Kofaktor syntezy kolagenu. Skóra zużywa dużo vit C. Suplementacja wspiera regenerację + naczynia pod oczami.</div>
+  </div>
+  <div class="prod">
+    <div class="prod-name">Witamina K2 (MK-7, 100-200µg/dzień)</div>
+    <div class="prod-desc">Wzmacnia ściany naczyń krwionośnych — zmniejsza prześwitywanie pod oczami. Synergia z D3 + wapniem (które masz w normie).</div>
+  </div>
+  <div class="prod">
+    <div class="prod-name">Nawodnienie 2.5L+/dzień</div>
+    <div class="prod-desc">Odwodnienie → skóra wygląda matowo, cienie się nasilają, HA w kremie nie ma co łapać. Pij regularnie przez dzień, nie jednorazowo.</div>
+  </div>
+  <div class="prod">
+    <div class="prod-name">Kolagen (hydrolizowany, 5-10g/dzień) — opcjonalny</div>
+    <div class="prod-desc">Badania pokazują poprawę elastyczności skóry po 8-12 tyg suplementacji. Nie must-have ale nice-to-have. Dodaj do porannej kawy/shake.</div>
+  </div>
+</div>
+
+<!-- ===== COST ===== -->
+<div class="s">
+  <h2>💰 Całkowity koszt</h2>
+  
+  <table class="compat">
+    <tr><th>Produkt</th><th>Cena</th><th>Starczy na</th></tr>
+    <tr><td>Squalane Cleanser 150ml</td><td>~9.80€</td><td>~2 mies.</td></tr>
+    <tr><td>NMF + HA 100ml</td><td>~13.90€</td><td>~2.5 mies.</td></tr>
+    <tr><td>Caffeine Solution 30ml</td><td>~8.70€</td><td>~3 mies.</td></tr>
+    <tr><td>Niacinamide 10% + Zinc 60ml</td><td>~9.40€</td><td>~3 mies.</td></tr>
+    <tr><td>Retinol 0.2% 30ml</td><td>~6.50€</td><td>~3 mies.</td></tr>
+    <tr><td>LRP Anthelios SPF50+ 50ml</td><td>~16€</td><td>~5-6 tyg.</td></tr>
+    <tr style="border-top:2px solid #667eea;">
+      <td><strong>TOTAL setup</strong></td>
+      <td><strong>~64€</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Miesięczny koszt utrzymania</td>
+      <td colspan="2"><strong>~22€/mies.</strong> (głównie SPF refill + cleanser)</td>
+    </tr>
+  </table>
+  
+  <div style="font-size:11px;color:#4a4a5e;margin-top:6px;">
+    theordinary.com: darmowa dostawa od 20€. Zamów 4 produkty The Ordinary razem (29€+ = free shipping + gratis NMF 30ml do 9 kwietnia!).
+  </div>
+</div>
+
+<!-- ===== FAQ ===== -->
+<div class="s">
+  <h2>❓ FAQ</h2>
+  
+  <div style="font-size:13px;margin-bottom:12px;">
+    <strong style="color:#667eea;">Czy muszę myć twarz rano skoro nic na nią w nocy nie nałożyłem?</strong><br>
+    <span style="color:#9b9bb0;">Tak. W nocy skóra produkuje sebum, pot, martwe komórki. Cleanser rano usuwa to wszystko i przygotowuje "czyste płótno" pod produkty. Nie musisz intensywnie — szybki cleanser 20 sek wystarczy.</span>
+  </div>
+  
+  <div style="font-size:13px;margin-bottom:12px;">
+    <strong style="color:#667eea;">Mogę pominąć SPF jak siedzę w domu cały dzień?</strong><br>
+    <span style="color:#9b9bb0;">Jeśli nie siedzisz przy oknie — technicznie tak. Ale warto nakładać zawsze — budowanie nawyku > perfekcja. UVA przenika przez szkło (okna). Przy retinolu zwłaszcza — lepiej dmuchać na zimne.</span>
+  </div>
+  
+  <div style="font-size:13px;margin-bottom:12px;">
+    <strong style="color:#667eea;">Co jeśli retinol za bardzo podrażnia?</strong><br>
+    <span style="color:#9b9bb0;">1. Zmniejsz do 1x/tyg. 2. Użyj sandwich method (moisturizer → retinol → moisturizer). 3. Jeśli dalej piecze → stop na tydzień, wróć od 1x/tyg. 4. Jeśli nawet 1x/tyg to za dużo → rozważ Bakuchiol (roślinny retinol-like, The Ordinary nie ma ale The Inkey List tak).</span>
+  </div>
+  
+  <div style="font-size:13px;margin-bottom:12px;">
+    <strong style="color:#667eea;">Ile czasu to zajmuje rano/wieczór?</strong><br>
+    <span style="color:#9b9bb0;">Tydzień 1-2 (baza): 3 min rano, 2 min wieczór. Full routine: 5 min rano, 5 min wieczór. Czas oczekiwania (wchłanianie) można wykorzystać na mycie zębów itp.</span>
+  </div>
+  
+  <div style="font-size:13px;margin-bottom:12px;">
+    <strong style="color:#667eea;">Kiedy zobaczę efekty?</strong><br>
+    <span style="color:#9b9bb0;">• Nawilżenie: natychmiast (pierwszy dzień)<br>• Cienie pod oczami: 2-3 tygodnie<br>• Niacinamide (pory, koloryt): 4-6 tygodni<br>• Retinol (tekstura, anti-aging): 6-12 tygodni<br>• Pełne efekty retinolowego remodelingu kolagenu: 6-12 miesięcy</span>
+  </div>
+</div>
+
+<div class="disc">
+  🦖 Claw Studio • 6 kwietnia 2026<br>
+  Informacyjny. Przy irytacji/alergii stop + konsultacja dermatologa.
+</div>
+
+</div>
+</body>
+</html>
